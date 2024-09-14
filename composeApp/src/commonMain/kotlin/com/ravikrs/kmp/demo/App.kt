@@ -15,6 +15,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import kmpdemo.composeapp.generated.resources.Res
 import kmpdemo.composeapp.generated.resources.compose_multiplatform
+import kmpdemo.composeapp.generated.resources.vw_logo
 
 @Composable
 @Preview
@@ -23,12 +24,12 @@ fun App() {
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+                Text("Show/Hide Logo")
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
+                    Image(painterResource(Res.drawable.vw_logo), null)
                     Text("Compose: $greeting")
                 }
             }

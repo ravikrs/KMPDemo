@@ -19,3 +19,6 @@ We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public S
 If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
 
 You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+
+## Links
+- [Logo](https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg)
