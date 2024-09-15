@@ -9,6 +9,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.icerock.moko.mvvm.compose.getViewModel
+import dev.icerock.moko.mvvm.compose.viewModelFactory
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kmpdemo.composeapp.generated.resources.Res
 import kmpdemo.composeapp.generated.resources.vw_logo
 import kotlinx.datetime.Clock
@@ -32,27 +37,44 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
+        val viewModel = getViewModel(Unit, viewModelFactory { WeatherViewModel() })
+        val uiState by viewModel.uiState.collectAsState()
+        LaunchedEffect(viewModel) {
+            viewModel.updateWeatherData()
+        }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
-            Text(
-                text = "Todays date is ${todaysDate()}",
-                textAlign = TextAlign.Center,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(20.dp)
-            )
+            CustomText("Todays date is ${todaysDate()}")
+
+            CustomText("Temperature is ${uiState.domain?.currentWeather?.temperature} ${uiState.domain?.current_weather_units?.temperature}")
+
+            CustomText("Wind speed is ${uiState.domain?.currentWeather?.windspeed} ${uiState.domain?.current_weather_units?.windspeed}")
 
             Button(onClick = { showContent = !showContent }) {
                 Text("Show/Hide Greeting")
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text("Compose: $greeting")
                     Image(painterResource(Res.drawable.vw_logo), null)
                 }
             }
         }
     }
+}
+
+@Composable
+private fun CustomText(text: String) {
+    Text(
+        text = text,
+        textAlign = TextAlign.Center,
+        fontSize = 24.sp,
+        modifier = Modifier.padding(20.dp)
+    )
 }
 
 fun todaysDate(): String {

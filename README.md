@@ -22,3 +22,4 @@ You can open the web application by running the `:composeApp:wasmJsBrowserDevelo
 
 ## Links
 - [Logo](https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg)
+- [Weather api](https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&timezone=Europe%2FBerlin)
