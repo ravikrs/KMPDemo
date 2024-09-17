@@ -1,5 +1,6 @@
 # KMP Demo
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop(partially).
+Slides for the demo: https://ravikrs.github.io/kmp-demo/
 
 ## KMP Setup
 - JDK (recommended JDK 17)
